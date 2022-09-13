@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {useForm} from "react-hook-form"
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import './SignUpForm.css';
+
 
 
 function SignUpForm(){
@@ -12,8 +14,10 @@ function SignUpForm(){
   let errorMsg="";
   var loggedIn = false;
 
+
+
   const onSubmit = async (data)=>{
-    const result = await fetch("http://localhost:4000/signup",{
+    /*const result = await fetch(apiUrl + "signup",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(data),
@@ -25,7 +29,14 @@ function SignUpForm(){
     .catch((err)=>{
       console.log("error: ", err.message);
       return 500
-    });
+    });*/
+    const result = await axios.post("http://localhost:4000/signup",  {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      data
+    })
+
 
     if(result == 200){
       navigate("/");

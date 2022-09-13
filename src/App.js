@@ -10,6 +10,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import NoPage from "./pages/NoPage";
+import Loading from "./pages/Loading";
+import Profile from "./pages/Profile";
+
 
 
 function App() {
@@ -28,6 +31,10 @@ function App() {
     });
   }, []);*/
 
+
+  axios.get('http://localhost:4000/')
+  .then()
+  .then(console.log("hello?"))
 
   return (
     <div className="App">

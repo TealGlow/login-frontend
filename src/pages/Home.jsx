@@ -5,7 +5,8 @@ function Home() {
     return (
         <>
           <Navbar />
-          <h1>this is the homepage</h1>
+          <h1>you are not logged in.</h1>
+          <a className ="App-link" href={"/auth/login"}>Login Here</a>
         </>
     );
 }
