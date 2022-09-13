@@ -1,27 +1,43 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {useForm} from "react-hook-form"
+import { useNavigate } from "react-router-dom";
 import './SignUpForm.css';
 
 
 function SignUpForm(){
-  /*const [data, setData] = React.useState([]);
 
-  React.useEffect(() => {
-  fetch(`http://localhost:4000/test`,
-    {
-      method: "POST",
-      dataType:"json"
-    })
-    .then((response) => response.json())
-    .then((actualData) => setData(actualData))
-    .catch((err)=>{
-      console.log(err.message);
-    });
-  }, []);
-*/
   const {register, getValues, handleSubmit, watch, formState: {errors}} = useForm();
-  const onSubmit = data=>console.log(data);
+  const navigate = useNavigate();
+  let errorMsg="";
+  var loggedIn = false;
+
+  const onSubmit = async (data)=>{
+    const result = await fetch("http://localhost:4000/signup",{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data),
+    })
+    .then((response) => response)
+    .then((actualData) => {
+      return actualData.status
+    })
+    .catch((err)=>{
+      console.log("error: ", err.message);
+      return 500
+    });
+    console.log("result ", result)
+    if(result == 200){
+
+      navigate("/");
+    }else if(result == 409){
+      console.log("username taken")
+      errorMsg = "Username Taken"
+    }else{
+      console.log("Server error: please try again!")
+      errorMsg = "Server error: please try again!"
+    }
+  };
 
   return(
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -68,9 +84,10 @@ function SignUpForm(){
       })} /><br/>
       {errors.email && <div class="form-error">{errors.email?.message || "Email is required"}</div>}
 
-
+      {errorMsg? errorMsg: ""}
       <input type="submit" value="Submit"/>
     </form>
+
   );
 }
 
