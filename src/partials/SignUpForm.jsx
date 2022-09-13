@@ -26,9 +26,8 @@ function SignUpForm(){
       console.log("error: ", err.message);
       return 500
     });
-    console.log("result ", result)
-    if(result == 200){
 
+    if(result == 200){
       navigate("/");
     }else if(result == 409){
       console.log("username taken")
@@ -45,7 +44,7 @@ function SignUpForm(){
 
       { /* username validation */ }
       <label for="username">Username (max length: 25): </label> <br/>
-      <input type="text" id="username" name="username" {...register("username", { required: true, maxLength: 25,  pattern: {value:/^[A-Z0-9. _-]+$/i, message: "Please enter a valid username" }})} /><br/>
+      <input type="text" id="username" name="username" {...register("username", { required: true, maxLength: 25, minLength: 3,  pattern: {value:/^[A-Z0-9. _]+$/i, message: "Please enter a valid username" }})} /><br/>
       {errors.username && <div class="form-error">{errors.username.message || "Username is required" }</div>}
 
 
@@ -55,9 +54,9 @@ function SignUpForm(){
 
 
       { /* password validation */ }
-      <label for="password">Password</label><br/>
-      <input type="text" id="password" name="password" {...register("password", { required: true})} /><br/>
-      {errors.password && <div class="form-error">Password is required</div>}
+      <label for="password">Password (min length: 5):</label><br/>
+      <input type="text" id="password" name="password" {...register("password", { required: true, minLength: { value: 5, message:"Password is not long enough!" }})} /><br/>
+      {errors.password && <div class="form-error">{errors.password.message || "Password is required"}</div>}
 
 
       { /* confirm password validation */ }
