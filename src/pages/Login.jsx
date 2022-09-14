@@ -10,7 +10,6 @@ function Login() {
         <>
           <Navbar />
           <LoginForm />
-          <h1>this is the LOGIN page</h1>
         </>
     );
 }

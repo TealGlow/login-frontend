@@ -32,9 +32,9 @@ function App() {
   }, []);*/
 
 
-  axios.get('http://localhost:4000/')
+  /*axios.get('http://localhost:4000/')
   .then()
-  .then(console.log("hello?"))
+  .then()*/
 
   return (
     <div className="App">
