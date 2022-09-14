@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {useForm} from "react-hook-form"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import './SignUpForm.css';
+import './Form.css';
 
 
 
@@ -54,24 +54,28 @@ function SignUpForm(){
       <h1>Sign up</h1>
 
       { /* username validation */ }
-      <label for="username">Username (max length: 25): </label> <br/>
+      <label class="input-label" for="username">Username: </label><br />
+      <div class="information">Please keep your username between 3 and 25 characters. Letters, numbers, space, underscore, and period are allowed</div> <br/>
       <input type="text" id="username" name="username" {...register("username", { required: true, maxLength: 25, minLength: 3,  pattern: {value:/^[A-Z0-9. _]+$/i, message: "Please enter a valid username" }})} /><br/>
       {errors.username && <div class="form-error">{errors.username.message || "Username is required" }</div>}
-
+      <br/>
 
       { /* display name, can be blank for now */ }
-      <label for="displayname">Displayname (max length: 25):</label><br/>
+      <label class="input-label" for="displayname">Displayname:</label><br />
+      <div class="information">Please keep your displayname between 3 and 25 characters.  This can be changed at any time.</div><br/>
       <input type="text" id="displayname" name="displayname" {...register("displayname", { maxLength: 25,  pattern: {value:/^[\w-_.]*$/i} })} /><br/>
-
+      <br/>
 
       { /* password validation */ }
-      <label for="password">Password (min length: 5):</label><br/>
+      <label class="input-label" for="password">Password:</label><br/>
+      <div class="information">Password must be at least 5 characters long.</div><br/>
       <input type="text" id="password" name="password" {...register("password", { required: true, minLength: { value: 5, message:"Password is not long enough!" }})} /><br/>
       {errors.password && <div class="form-error">{errors.password.message || "Password is required"}</div>}
-
+      <br/>
 
       { /* confirm password validation */ }
-      <label for="password">Confirm Password:</label><br/>
+      <label class="input-label" for="password">Confirm Password:</label><br/>
+      <div class="information">Please enter your password again.</div><br/>
       <input type="text" id="confirmpassword" name="confirmpassword" {...register("confirmPassword", {
         required: true,
         validate: {
@@ -80,10 +84,11 @@ function SignUpForm(){
         message: "Required field"
       })} /><br/>
       {errors.confirmPassword && <div class="form-error">{errors.confirmPassword.message || "Please confirm password"}</div>}
-
+      <br/>
 
       { /* email validation */ }
-      <label for="email">Email:</label><br/>
+      <label class="input-label" for="email">Email:</label><br/>
+      <div class="information">To confirm account.</div><br/>
       <input type="text" id="email" name="email" {...register("email",
       {
         required: true,
@@ -95,6 +100,7 @@ function SignUpForm(){
       {errors.email && <div class="form-error">{errors.email?.message || "Email is required"}</div>}
 
       {errorMsg? errorMsg: ""}
+      <br/>
       <input type="submit" value="Submit"/>
     </form>
 
