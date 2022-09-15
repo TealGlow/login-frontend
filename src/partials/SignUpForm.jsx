@@ -14,6 +14,16 @@ function SignUpForm(){
   let errorMsg="";
   var loggedIn = false;
 
+  const confirmPasswordOptions={required: true, validate: {passwordEqual: value => (value === getValues().password) || 'passwords need to match!',},message: "Required field"}
+  const passwordOptions={ required: true, minLength: { value: 5, message:"Password is not long enough!" }};
+
+  //https://melvingeorge.me/blog/show-or-hide-password-ability-reactjs
+  const [passwordShown, setPasswordShown] = React.useState(false);
+
+  const togglePassword = (e)=>{
+    e.preventDefault();
+    setPasswordShown(!passwordShown);
+  }
 
 
   const onSubmit = async (data)=>{
@@ -29,16 +39,16 @@ function SignUpForm(){
     .catch((err)=>{
       console.log("error: ", err.message);
       return 500
-    });*/
-    const result = await axios.post("http://localhost:4000/signup",  {
+    });
+    /*const result = await axios.post("http://localhost:4000/signup",  {
       headers: {
         "Content-Type": "application/json"
       },
       data
     })
+    */
 
-
-    if(result == 200){
+    /*if(result == 200){
       navigate("/");
     }else if(result == 409){
       console.log("username taken")
@@ -46,7 +56,8 @@ function SignUpForm(){
     }else{
       console.log("Server error: please try again!")
       errorMsg = "Server error: please try again!"
-    }
+    }*/
+    console.log(data)
   };
 
   return(
@@ -69,14 +80,18 @@ function SignUpForm(){
       { /* password validation */ }
       <label class="input-label" for="password">Password:</label><br/>
       <div class="information">Password must be at least 5 characters long.</div><br/>
-      <input type="text" id="password" name="password" {...register("password", { required: true, minLength: { value: 5, message:"Password is not long enough!" }})} /><br/>
+      <div class="password-field">
+        <input type={passwordShown ? "text" : "password"} id="password" name="password" {...register("password", { required: true, minLength: { value: 5, message:"Password is not long enough!" }})} /><br/>
+        <button onClick={togglePassword}>Show</button>
+      </div>
+      <br/>
       {errors.password && <div class="form-error">{errors.password.message || "Password is required"}</div>}
       <br/>
 
       { /* confirm password validation */ }
       <label class="input-label" for="password">Confirm Password:</label><br/>
       <div class="information">Please enter your password again.</div><br/>
-      <input type="text" id="confirmpassword" name="confirmpassword" {...register("confirmPassword", {
+      <input type="password" id="confirmpassword" name="confirmpassword" {...register("confirmPassword", {
         required: true,
         validate: {
           passwordEqual: value => (value === getValues().password) || 'passwords need to match!',

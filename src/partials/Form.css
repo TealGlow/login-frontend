@@ -16,3 +16,21 @@
 .input-label{
   font-weight: bold;
 }
+
+.password-field{
+  display:flex;
+  align-items: row;
+}
+
+input{
+  border-width:1px;
+  border-radius:0;
+}
+
+.password-field button{
+  background-color:white;
+  border: solid;
+  border-width:1px;
+  border-radius: 0;
+  border-color:black;
+}
