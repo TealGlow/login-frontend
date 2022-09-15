@@ -39,14 +39,14 @@ function SignUpForm(){
     .catch((err)=>{
       console.log("error: ", err.message);
       return 500
-    });
-    /*const result = await axios.post("http://localhost:4000/signup",  {
+    });*/
+    const result = await axios.post("http://localhost:4000/signup",  {
       headers: {
         "Content-Type": "application/json"
       },
       data
-    })
-    */
+    });
+
 
     /*if(result == 200){
       navigate("/");
@@ -68,7 +68,7 @@ function SignUpForm(){
       <label class="input-label" for="username">Username: </label><br />
       <div class="information">Please keep your username between 3 and 25 characters. Letters, numbers, space, underscore, and period are allowed</div> <br/>
       <input type="text" id="username" name="username" {...register("username", { required: true, maxLength: 25, minLength: 3,  pattern: {value:/^[A-Z0-9. _]+$/i, message: "Please enter a valid username" }})} /><br/>
-      {errors.username && <div class="form-error">{errors.username.message || "Username is required" }</div>}
+      {errors.username && <div role="error-message" class="form-error">{errors.username.message || "Username is required" }</div>}
       <br/>
 
       { /* display name, can be blank for now */ }
