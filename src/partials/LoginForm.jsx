@@ -36,6 +36,9 @@ function LoginForm(){
   return(
     <form onSubmit={handleSubmit(onSubmit)}>
       <h1>Login</h1>
+
+      Need an account?&nbsp;<a href="/SignUp">Sign Up!</a><br/><br/>
+
       <label class="input-label" for="username">Username: </label> <br/>
       <input type="text" id="username" name="username" {...register("username", { required: true, maxLength: 25, minLength: 3,  pattern: {value:/^[A-Z0-9. _]+$/i, message: "Please enter a valid username" }})} /><br/>
       {errors.username && <div class="form-error">{errors.username.message || "Username is required" }</div>}

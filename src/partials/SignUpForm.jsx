@@ -48,6 +48,8 @@ function SignUpForm(){
     <form onSubmit={handleSubmit(onSubmit)}>
       <h1>Sign up</h1>
 
+      Already have an account?&nbsp;<a href="/Login">Login!</a><br/><br/>
+
       { /* username validation */ }
       <label class="input-label" for="username">Username: </label><br />
       <div class="information">Please keep your username between 3 and 25 characters. Letters, numbers, space, underscore, and period are allowed</div> <br/>
