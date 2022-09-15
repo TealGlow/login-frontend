@@ -11,14 +11,12 @@ function SignUpForm(){
 
   const {register, getValues, handleSubmit, watch, formState: {errors}} = useForm();
   const navigate = useNavigate();
-  let errorMsg="";
   var loggedIn = false;
 
-  const confirmPasswordOptions={required: true, validate: {passwordEqual: value => (value === getValues().password) || 'passwords need to match!',},message: "Required field"}
-  const passwordOptions={ required: true, minLength: { value: 5, message:"Password is not long enough!" }};
 
   //https://melvingeorge.me/blog/show-or-hide-password-ability-reactjs
   const [passwordShown, setPasswordShown] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState(null);
 
   const togglePassword = (e)=>{
     e.preventDefault();
@@ -27,37 +25,23 @@ function SignUpForm(){
 
 
   const onSubmit = async (data)=>{
-    /*const result = await fetch(apiUrl + "signup",{
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(data),
-    })
-    .then((response) => response)
-    .then((actualData) => {
-      return actualData.status
-    })
-    .catch((err)=>{
-      console.log("error: ", err.message);
-      return 500
-    });*/
-    const result = await axios.post("http://localhost:4000/signup",  {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      data
-    });
 
+    const result = await axios.post("http://localhost:4000/signup", data)
+    .then((response)=>{
+      console.log(response)
+      if(response.status == 200){
+        navigate("/");
+      }
+    })
+    .catch((r)=>{
+        if(r.response.status  == 409){
+          setErrorMsg("Username Taken")
+        }else{
+          setErrorMsg("Server error: please try again!")
+        }
+      }
+    );
 
-    /*if(result == 200){
-      navigate("/");
-    }else if(result == 409){
-      console.log("username taken")
-      errorMsg = "Username Taken"
-    }else{
-      console.log("Server error: please try again!")
-      errorMsg = "Server error: please try again!"
-    }*/
-    console.log(data)
   };
 
   return(
@@ -68,7 +52,8 @@ function SignUpForm(){
       <label class="input-label" for="username">Username: </label><br />
       <div class="information">Please keep your username between 3 and 25 characters. Letters, numbers, space, underscore, and period are allowed</div> <br/>
       <input type="text" id="username" name="username" {...register("username", { required: true, maxLength: 25, minLength: 3,  pattern: {value:/^[A-Z0-9. _]+$/i, message: "Please enter a valid username" }})} /><br/>
-      {errors.username && <div role="error-message" class="form-error">{errors.username.message || "Username is required" }</div>}
+      {errors.username && <div role="error-message" class="form-error">{errors.username.message || errorMsg || "Username is required" }</div>}
+      {errorMsg ? <div role="error-message" class="form-error">{errorMsg }</div> : ""}
       <br/>
 
       { /* display name, can be blank for now */ }
@@ -114,7 +99,6 @@ function SignUpForm(){
       })} /><br/>
       {errors.email && <div class="form-error">{errors.email?.message || "Email is required"}</div>}
 
-      {errorMsg? errorMsg: ""}
       <br/>
       <input type="submit" value="Submit"/>
     </form>
