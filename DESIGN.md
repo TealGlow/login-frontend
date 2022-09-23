@@ -21,5 +21,8 @@ We want to create a virtual pet website in a similar vein as Neopets that concep
 UML of user login and what happens when a user attempts to login:
 ![UML diagram of user login](./design-img/UML-UserLogin.jpg)
 
-UML of when the user does not exist within the db:
-![UML diagram of user login](./design-img/UML-UserLoginUserDoesNotExist.jpg)
+UML of user new account creation
+![UML diagram of user account creation](./design-img/UML-AccountCreation.jpg)
+
+Diagram of the general architecture
+![Diagram of the general architecture](./design-img/Arch.jpg)
