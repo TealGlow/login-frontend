@@ -30,6 +30,7 @@ function LoginForm(){
     });
   }, []);
 */
+
   const {register, getValues, handleSubmit, watch, formState: {errors}} = useForm();
   const onSubmit = async (data)=>{console.log(data)}
 
@@ -39,6 +40,7 @@ function LoginForm(){
 
       Need an account?&nbsp;<a href="/SignUp">Sign Up!</a><br/><br/>
 
+      { /* username validation */ }
       <label class="input-label" for="username">Username: </label> <br/>
       <input type="text" id="username" name="username" {...register("username", { required: true, maxLength: 25, minLength: 3,  pattern: {value:/^[A-Z0-9. _]+$/i, message: "Please enter a valid username" }})} /><br/>
       {errors.username && <div class="form-error">{errors.username.message || "Username is required" }</div>}
@@ -52,7 +54,7 @@ function LoginForm(){
         <button onClick={togglePassword}>Show</button>
       </div>
       <br/>
-      {errors.password && <div class="form-error">{errors.password.message || "Password is required"}</div>}
+      { errors.password && <div class="form-error">{errors.password.message || "Password is required"}</div> }
       <br/>
 
       <input type="submit" value="Submit"/>
