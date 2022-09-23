@@ -24,5 +24,7 @@ UML of user login and what happens when a user attempts to login:
 UML of user new account creation
 ![UML diagram of user account creation](./design-img/UML-AccountCreation.jpg)
 
-Diagram of the general architecture
+Diagram of the general architecture:
+- Auth services is responsible for creating new user accounts, logging in users, creating cookies, and checking if the user can view a page.
+- User data service is responsible for all other user information that is not sensitive.  This can be user inventory, their profile, their virtual pets, and other things that can be shown to the public or logged in users.
 ![Diagram of the general architecture](./design-img/Arch.jpg)
