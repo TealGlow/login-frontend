@@ -29,3 +29,15 @@ Diagram of the general architecture:
 - User data service is responsible for all other user information that is not sensitive.  This can be user inventory, their profile, their virtual pets, and other things that can be shown to the public or logged in users.
 
 ![Diagram of the general architecture](./design-img/Arch.jpg)
+
+## APIs:
+Both the auth services and user data services are done in an API manner.  These are done in Node.js.
+
+## Data Storage Method:
+We are using MongoDB for all data storage.  The only things that are allowed to do CRUD operations on the DB are the APIs, and the APIs need to be authenticated and authorized with tokens first.  This is especially important in sensitive tables. Passwords must be hashed and salted before stored.
+
+## Database design:
+
+## Need to research:
+- Security measures
+- Cookies for user login so that they can only view pages when logged in.
