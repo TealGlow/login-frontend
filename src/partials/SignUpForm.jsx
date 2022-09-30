@@ -34,8 +34,9 @@ function SignUpForm(){
       }
     })
     .catch((r)=>{
-        if(r.response.status  == 409){
-          setErrorMsg("Username Taken")
+      console.log(r.response.status)
+        if(r.response.status == 409){
+          setErrorMsg(r.response.data.message)
         }else{
           setErrorMsg("Server error: please try again!")
         }
